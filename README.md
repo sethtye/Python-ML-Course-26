@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=23536502&assignment_repo_type=AssignmentRepo)
+=======
+>>>>>>> 10ac60933107addec930ee1247f38ddccd32c27a
 # PCML Run 26 — ML Foundations for Professionals
 
 Terrene Open Academy course powered by the [Kailash Python SDK](https://github.com/terrene-foundation/kailash-py).
