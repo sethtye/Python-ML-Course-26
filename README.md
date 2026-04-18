@@ -1,131 +1,153 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=23536502&assignment_repo_type=AssignmentRepo)
 =======
 >>>>>>> 10ac60933107addec930ee1247f38ddccd32c27a
 # PCML Run 26 — ML Foundations for Professionals
+=======
+# PCML Run 26 — Student Repository
+>>>>>>> fa0fda9dad8df05ddd59036a0c13d67ce5166b79
 
-Terrene Open Academy course powered by the [Kailash Python SDK](https://github.com/terrene-foundation/kailash-py).
+This is your **personal fork** of the PCML Run 26 course materials. Everything
+below applies to your fork; the instructor's repo at
+`https://github.com/pcml-run26/pcml-run26-professional-certificate-in-machine-learning-pcml-run26-2601` is the "upstream" you pull
+updates from.
 
-From zero Python to production ML engineering across 6 modules (192 contact hours).
+---
 
-## Quick Start
+## What's in this repo
+
+| Path                                       | What it is                                                                       |
+| ------------------------------------------ | -------------------------------------------------------------------------------- |
+| `modules/mlfpNN/readings/deck.pdf`         | Full slide deck (read this first for each module)                                |
+| `modules/mlfpNN/readings/textbook.pdf`     | Long-form textbook (deep reading)                                                |
+| `modules/mlfpNN/readings/notes.pdf`        | Condensed notes (revision)                                                       |
+| `modules/mlfpNN/local/ex_N/`               | Your exercise files (edit these in VS Code)                                      |
+| `modules/mlfpNN/colab-selfcontained/ex_N/` | Self-contained Colab notebooks — open directly in Colab, no git clone needed     |
+| `modules/mlfpNN/solutions/ex_N/`           | **Reference solutions** — consult AFTER attempting your own                      |
+| `modules/mlfpNN/diagnostic-reference/`     | Captured diagnostic outputs (plots + reports) for reference                      |
+| `shared/`                                  | Helper code the exercises import (diagnostics, data loaders, etc.) — do not edit |
+| `data/`                                    | Small datasets (large ones auto-download on first run)                           |
+
+---
+
+## One-time setup (VSCode terminal)
+
+Open the VSCode integrated terminal (`` Ctrl+` `` or `` Cmd+` ``) and paste:
 
 ```bash
-# 1. Clone (includes datasets via Git LFS — requires git-lfs installed)
-git clone https://github.com/terrene-foundation/pcml-run26-2601.git
-cd pcml-run26-2601
+# 1. Confirm you're inside YOUR fork
+git remote -v
 
-# 2. Create your working branch
-git checkout -b your-name/work
+# 2. Add the instructor's repo as "upstream" — copy this ONE line
+git remote add upstream https://github.com/pcml-run26/pcml-run26-professional-certificate-in-machine-learning-pcml-run26-2601.git
 
-# 3. Set up Python environment
+# 3. Verify both remotes
+git remote -v
+# origin    → your fork
+# upstream  → pcml-run26/pcml-run26-professional-certificate-in-machine-learning-pcml-run26-2601
+```
+
+That's it — setup done once per machine.
+
+---
+
+## Pull the latest from your instructor (do every class)
+
+In the VSCode terminal:
+
+```bash
+# Save your own work first
+git add -A && git commit -m "wip" || true
+
+# Fetch + merge from instructor
+git fetch upstream && git merge upstream/main
+
+# Push the merged result back to your fork
+git push origin main
+```
+
+If you see merge conflicts: VSCode highlights them with **Accept Incoming /
+Current / Both** buttons in each conflicted file. Choose:
+
+- **Accept Incoming** for any files in `shared/**`, `pyproject.toml`,
+  `uv.lock`, `data/**` (these are instructor-managed)
+- **Accept Current** or resolve by hand for files YOU edited (usually your
+  exercise solutions under `modules/mlfpNN/local/`)
+
+---
+
+## Running exercises locally
+
+```bash
+# One-time — install dependencies
 uv sync
 
-# 4. Create your .env file
-cp .env.example .env
-# Edit .env with your API keys (needed for M6)
-
-# 5. Run your first exercise
-uv run python modules/mlfp01/local/ex_1/01_*.py
+# Run an exercise
+.venv/bin/python modules/mlfp05/local/ex_1/01_standard_ae.py
 ```
 
-## Requirements
+---
 
-- **Python 3.13+**
-- **[uv](https://docs.astral.sh/uv/)** — `curl -LsSf https://astral.sh/uv/install.sh | sh`
-- **Git LFS** — `brew install git-lfs` (macOS) or `apt install git-lfs` (Linux)
-- **GPU recommended** for M5-M6 (MPS on Apple Silicon, CUDA on Linux/Windows)
+## Running exercises in Google Colab
 
-## Course Structure
+Each exercise has a self-contained `.ipynb` notebook under
+`modules/mlfpNN/colab-selfcontained/ex_N/`. No git clone, no `FORK_URL`,
+no `sys.path` setup — all helpers are inlined.
 
-| Module | Title | Hours |
-|--------|-------|-------|
-| MLFP01 | Data Pipelines and Visualisation Mastery with Python | 25h |
-| MLFP02 | Statistical Mastery for ML and AI Success | 25h |
-| MLFP03 | Supervised ML for Building and Deploying Models | 25h |
-| MLFP04 | Unsupervised ML and Advanced Techniques | 25h |
-| MLFP05 | Deep Learning and Vision | 25h |
-| MLFP06 | Language Models and Agentic Workflows | 25h |
+1. Download the `.ipynb` from your fork (or drag-and-drop from your file manager).
+2. Open it in [Google Colab](https://colab.research.google.com) — File → Upload notebook.
+3. **Before running**: Runtime → Change runtime type → **T4 GPU** (free tier, needed for Modules 5-6).
+4. Run **Cell 0** — installs `kailash`, `kailash-ml`, `kailash-kaizen`, `torch`, etc.
+5. Run **Cell 1** — defines all shared helpers. You can collapse this cell with the ▼ arrow.
+6. Fill in the `____` / `# TODO` blanks in subsequent cells and run them.
 
-**Foundation Certificate**: Modules 1-4 (128 hours)
-**Advanced Certificate**: Modules 5-6 (64 hours)
+### Pulling updates
 
-## How to Work
+When your instructor pushes updates, re-download the specific notebook you're
+working on. Your in-Colab edits are NOT overwritten — they live in the Colab
+cloud copy until you save a Drive version. Download a fresh template whenever
+you want to restart an exercise from scratch.
 
-### Directory Layout
+---
 
-```
-data/                          # Datasets (auto-fetched via Git LFS)
-modules/mlfpNN/
-  readings/                    # Deck PDF, textbook PDF
-  local/ex_N/                  # Exercise files — YOUR WORKSPACE
-    helpers.py                 # Shared utilities (provided, do not edit)
-    01_technique.py            # Fill in the TODO blanks
-    02_technique.py
-    ...
-  colab/ex_N/                  # Google Colab notebooks (alternative)
-shared/                        # Python utilities (installed via uv sync)
-```
+## Where to find the diagnostic outputs
 
-### Exercise Structure
+Module 5 exercises use the `DLDiagnostics` toolkit to audit your trained
+models. You'll see its output in three places:
 
-Each exercise is a directory. Each file covers **one technique** with a complete narrative:
+1. **Inline in each exercise file** — search for
+   `# ══════ EXPECTED OUTPUT ══════` to see what a healthy (or unhealthy)
+   diagnostic report looks like
+2. **In your terminal/notebook output** — when you run the exercise, the
+   `diag.report()` call prints the live Prescription Pad
+3. **In `modules/mlfp05/diagnostic-reference/`** — captured reports and
+   interactive Plotly dashboards from reference runs. Open the `.html` files
+   in any browser to see a healthy training run's 4-panel dashboard.
 
-1. **Theory** — Why this technique exists (read this first)
-2. **Build** — Implement the model (fill in `# TODO:` blanks)
-3. **Train** — Train and track with kailash-ml
-4. **Visualise** — See the model's actual behaviour
-5. **Apply** — Solve a real-world business problem
+To see the live dashboard for **your own** run, change `show=False` to
+`show=True` in the diagnostic call, or use:
 
-Look for `____` placeholders — that's where your code goes. The `# TODO:` comment above each blank tells you what to write.
-
-### Running Exercises
-
-```bash
-# From the repo root:
-uv run python modules/mlfp05/local/ex_1/01_standard_ae.py
-
-# Or activate the venv first:
-source .venv/bin/activate
-python modules/mlfp05/local/ex_1/01_standard_ae.py
+```python
+diag.plot_training_dashboard().show()
 ```
 
-### Committing Your Work
+---
 
-```bash
-git add modules/mlfp05/local/ex_1/01_standard_ae.py
-git commit -m "Complete ex_1.01: Standard Autoencoder"
-git push
-```
+## Help / Troubleshooting
 
-## Reading Materials
+| Problem                              | Fix                                                                                                |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `ModuleNotFoundError: shared.mlfp05` | Locally: run `uv sync`. In Colab: re-run Cell 1 (inlined helpers) from the top                     |
+| Merge conflicts on `git pull`        | Keep your answers; take instructor's version for files in `shared/**`, `pyproject.toml`, `uv.lock` |
+| "Authentication failed" on push      | Use a GitHub Personal Access Token, or set up `gh auth login`                                      |
+| Colab says "No module named torch"   | Cell 0 hasn't finished — wait for pip install to complete, then re-run Cell 1                      |
+| PDF looks stale after `git pull`     | PDFs are binary — git pulls them correctly. If you opened one before pulling, close & reopen       |
 
-Each module includes PDF readings in `modules/mlfpNN/readings/`:
-- **deck.pdf** — Full lecture deck
-- **textbook.pdf** — Textbook chapter with derivations
-- **notes.pdf** — Speaker notes with timing cues
+---
 
-## Kailash Platform
+## Support
 
-All frameworks are pre-installed via `uv sync`:
-
-| Framework | Purpose |
-|-----------|---------|
-| kailash | Workflow orchestration, 140+ nodes |
-| kailash-ml | 13 ML engines (polars-native) |
-| kailash-dataflow | Zero-config database operations |
-| kailash-kaizen | AI agent framework |
-| kailash-pact | Governance (D/T/R) |
-| kailash-align | LLM fine-tuning |
-
-## Troubleshooting
-
-**`ModuleNotFoundError: No module named 'shared'`** — Run `uv sync` from the repo root first.
-
-**`git clone` hangs or is slow** — Install Git LFS: `git lfs install`, then re-clone.
-
-**GPU not detected** — Check `python -c "import torch; print(torch.backends.mps.is_available())"` (Mac) or `torch.cuda.is_available()` (Linux).
-
-## License
-
-Apache 2.0 — [Terrene Foundation](https://terrene.foundation)
+- Questions about exercises: post in the class Slack / LMS
+- Bug in course materials: open an issue on the instructor repo
+- Can't resolve a merge conflict: ask your TA or paste the conflict into Slack
