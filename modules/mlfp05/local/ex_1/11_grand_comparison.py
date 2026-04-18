@@ -40,7 +40,11 @@ from kailash_ml import ModelVisualizer
 from kailash_ml.engines.model_registry import ModelRegistry
 from kailash_ml.types import MetricSpec
 
+<<<<<<< HEAD
 from helpers import (
+=======
+from shared.mlfp05.ex_1 import (
+>>>>>>> 10ac60933107addec930ee1247f38ddccd32c27a
     INPUT_DIM,
     LATENT_DIM,
     EPOCHS,

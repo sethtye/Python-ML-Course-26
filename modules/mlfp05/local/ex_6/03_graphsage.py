@@ -26,7 +26,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+<<<<<<< HEAD
 from helpers import (
+=======
+from shared.mlfp05.ex_6 import (
+>>>>>>> 10ac60933107addec930ee1247f38ddccd32c27a
     OUTPUT_DIR,
     device,
     load_graph_data,
@@ -526,3 +530,68 @@ print(
 
 # Clean up
 asyncio.run(conn.close())
+<<<<<<< HEAD
+=======
+
+# ══════════════════════════════════════════════════════════════════
+# DIAGNOSTIC CHECKPOINT — five instruments before Visualise
+# ══════════════════════════════════════════════════════════════════
+# Reference: `shared/mlfp05/diagnostics.py` — see gold standard
+# `solutions/ex_1/01_standard_ae.py` for the full pattern.
+from shared.mlfp05.diagnostics import run_diagnostic_checkpoint
+
+
+def _diag_loss(m, batch):
+    # GraphSAGE with neighbour sampling
+    # Customise per your exercise's loss shape.
+    if isinstance(batch, (tuple, list)):
+        x = batch[0]
+        y = batch[1] if len(batch) > 1 else None
+    else:
+        x, y = batch, None
+    out = m(x)
+    import torch.nn.functional as F
+    if y is None:
+        return F.mse_loss(out, x)
+    return F.cross_entropy(out, y)
+
+
+print("\n── Diagnostic Report (GraphSAGE — Inductive Graph Learning) ──")
+try:
+    diag, findings = run_diagnostic_checkpoint(
+        sage,
+        sampled_loader,
+        _diag_loss,
+        title="GraphSAGE — Inductive Graph Learning",
+        n_batches=8,
+        show=False,
+    )
+except Exception as exc:
+    # Diagnostic is pedagogical — never block the exercise on it.
+    print(f"[diagnostic skipped: {exc}]")
+
+# ══════ EXPECTED OUTPUT (synthesized reference — full run produces similar pattern) ══════
+# ════════════════════════════════════════════════════════════════
+#   DL Diagnostics Report — Prescription Pad
+# ════════════════════════════════════════════════════════════════
+# [✓] Gradient flow (HEALTHY): RMS 6.3e-04 to 9.8e-03 across sampling layers.
+# [✓] Dead neurons  (HEALTHY): 11% inactive.
+# [✓] Loss trend    (HEALTHY): val accuracy 83%, train-val gap stable.
+# ════════════════════════════════════════════════════════════════
+#
+# STUDENT INTERPRETATION GUIDE — reading the Prescription Pad:
+
+#  [BLOOD TEST] Neighbour sampling (vs full graph) makes gradients
+#     slightly noisier but doesn't cause vanishing. The sampled
+#     aggregation is a form of gradient estimation — healthy variance.
+#
+#  [X-RAY] 11% inactive is fine for ReLU + mean aggregation.
+#     GraphSAGE's strength is INDUCTIVE — it generalises to
+#     unseen nodes (unlike GCN which is transductive).
+#
+#  [STETHOSCOPE] Comparable to GAT, but scales to graphs GCN/GAT
+#     can't fit in memory. The architecture trade-off: sampling
+#     noise vs scalability.
+
+
+>>>>>>> 10ac60933107addec930ee1247f38ddccd32c27a
